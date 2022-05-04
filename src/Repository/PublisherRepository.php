@@ -4,6 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Publisher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -33,18 +36,37 @@ class PublisherRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @return Publisher[]
-     */
-    public function getPublishersAll(): array {
+    public function getQueryBuilderJoined(): QueryBuilder {
         return $this->createQueryBuilder('p')
             ->select('p', 'country', 'games')
             ->join('p.country', 'country')
             ->join('p.games', 'games')
+        ;
+    }
+
+    /**
+     * @return Publisher[]
+     */
+    public function getPublishersAll(): array {
+        return $this->getQueryBuilderJoined()
             ->orderBy('p.name')
-//            ->setMaxResults(5)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    /**
+     * @param string $slug
+     * @return Publisher
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function getPublisherBySlug(string $slug): Publisher {
+        return $this->getQueryBuilderJoined()
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getSingleResult()
         ;
     }
 

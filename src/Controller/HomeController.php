@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\CommentRepository;
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,12 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(
+        GameRepository $gameRepository, CommentRepository $commentRepository
+    ): Response
     {
-//        return $this->redirectToRoute('app_home');
-
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'lastPublishedGames' => $gameRepository->findBy([], ['publishedAt' => 'DESC'], 9),
+            'mostPlayedGames' => $gameRepository->getMostGameByOrderBy('SUM(lib.gameTime)'),
+            'lastComments' => $commentRepository->findBy([], ['createdAt' => 'DESC'], 4), // simple find avec les bon params
+            'mostBoughtGames' => $gameRepository->getMostGameByOrderBy('COUNT(lib.game)'),
         ]);
     }
 

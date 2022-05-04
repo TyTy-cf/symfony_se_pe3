@@ -7,10 +7,14 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('styles') }}
         {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('scripts') }}
+        {% endblock %}
     </head>
     <body>
         <header>
             {% block header %}
+                {% include 'common/_navbar.html.twig' %}
             {% endblock %}
         </header>
         {% block body %}
@@ -20,9 +24,4 @@
             {% endblock %}
         </footer>
     </body>
-    <script>
-        {% block javascripts %}
-            {{ encore_entry_script_tags('scripts') }}
-        {% endblock %}
-    </script>
 </html>

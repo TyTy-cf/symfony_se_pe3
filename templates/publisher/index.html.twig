@@ -25,7 +25,9 @@
                     <img src="{{ publisher.country.urlFlag }}">
                 </div>
                 <div class="col-lg-4">
-                    {{ publisher.name }}
+                    <a class="text-decoration-none" href="{{ path('app_publisher_show', {'slug': publisher.slug}) }}">
+                        {{ publisher.name }}
+                    </a>
                 </div>
                 <div class="col-lg-4">
                     {{ publisher.website }}
