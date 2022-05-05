@@ -1,0 +1,37 @@
+
+{% for comment in comments %}
+    <div class="col-lg-3 col-md-6' p-1">
+        <div class="my-2 comment-card">
+            <div class="comment-card-game">
+                {{ comment.game.name }}
+            </div>
+            <div class="comment-card-body">
+                <p class="float-end">
+                    {{ 'home.menu.comment.writted_on'|trans({
+                        '%date%': comment.createdAt|date('d/m/Y')
+                    }) }}
+                </p>
+                <div class="d-inline-block">
+                    {{ comment.content|slice(0, 60) }}{% if comment.content|length > 60 %}...{% endif %}
+                </div>
+            </div>
+            <div class="comment-card-footer">
+                <a href="{{ path('app_account_show', {'slug': comment.account.slug}) }}">
+                    {{ 'home.menu.comment.writted_by'|trans(
+                        {
+                            '%name%': comment.account.name,
+                        }
+                    ) }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+
+{#                <a href="{{ path('account_show', {'name': comment.account.name}) }}" class="{% if hideAccount is defined %}d-none{% endif %}">#}
+{#                    {{ 'home.menu.comment.writted_by'|trans({#}
+{#                        '%name%': comment.account.name,#}
+{#                    }) }}#}
+{#                </a>#}

@@ -1,25 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}
-    OK
+    {{ 'home.title'|trans }}
 {% endblock %}
 
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
 
-    <div class="example-wrapper">
+    <div class="container my-3">
+        <h2 class="my-3">{{ 'home.menu.last_published'|trans }}</h2>
+        <div class="row">
+            {% include 'game/_game_loop.html.twig' with
+                {
+                    'games': lastPublishedGames,
+                }
+            %}
+        </div>
 
-        <a href="{{ path('app_publisher') }}">
-            Editeurs
-        </a>
+        <h2 class="my-3">{{ 'home.menu.most_played'|trans }}</h2>
+        <div class="row">
+            {% include 'game/_game_loop.html.twig' with
+                {
+                    'games': mostPlayedGames,
+                }
+            %}
+        </div>
 
-        {% if message is defined %}
-            {{ message }}
-        {% endif %}
+        <h2 class="my-3">{{ 'home.menu.last_comments'|trans }}</h2>
+        <div class="row">
+            {% include 'comment/_comment_loop.html.twig' with
+                {
+                    'comments': lastComments,
+                }
+            %}
+        </div>
+
+        <h2 class="my-3">{{ 'home.menu.most_bought'|trans }}</h2>
+        <div class="row">
+            {% include 'game/_game_loop.html.twig' with
+                {
+                    'games': mostBoughtGames,
+                }
+            %}
+        </div>
     </div>
+
 {% endblock %}

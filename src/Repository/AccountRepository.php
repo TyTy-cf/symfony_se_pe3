@@ -33,4 +33,9 @@ class AccountRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAccountRelations(string $slug)
+    {
+
+    }
+
 }
