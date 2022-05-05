@@ -61,7 +61,7 @@ class GameRepository extends ServiceEntityRepository
             ->setParameter('genres', $game->getGenres())
             ->andWhere('g != :currentGame')
             ->setParameter('currentGame', $game)
-            ->orderBy('game.publishedAt', 'DESC')
+            ->orderBy('g.publishedAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;
