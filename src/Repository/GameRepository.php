@@ -52,4 +52,18 @@ class GameRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function getRelatedGames(Game $game) {
+        return $this->createQueryBuilder('g')
+            ->select('g')
+            ->join('g.genres', 'genres')
+            ->where('g.genres IN (:genres)')
+            ->setParameter('genres', $game->getGenres())
+            ->andWhere('g != :currentGame')
+            ->setParameter('currentGame', $game)
+            ->orderBy('game.publishedAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
