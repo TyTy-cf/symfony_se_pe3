@@ -41,4 +41,22 @@ class CountryController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/modifier/{slug}', name: 'app_country_edit')]
+    public function edit(Country $country, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(CountryType::class, $country);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Country $country */
+            $country->setUrlFlag('https://flagcdn.com/32x24/' . $country->getCode() . '.png');
+            $em->flush();
+            return $this->redirectToRoute('app_country');
+        }
+
+        return $this->render('country/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

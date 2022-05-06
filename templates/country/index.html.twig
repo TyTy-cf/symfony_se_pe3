@@ -6,7 +6,9 @@
 
     <div class="container">
         {% for country in countries %}
-            <img src="{{ country.urlFlag }}">
+            <a href="{{ path('app_country_edit', {'slug': country.slug}) }}">
+                <img src="{{ country.urlFlag }}">
+            </a>
         {% endfor %}
     </div>
 
