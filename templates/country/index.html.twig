@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les pays{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {% for country in countries %}
+            <img src="{{ country.urlFlag }}">
+        {% endfor %}
+    </div>
+
+{% endblock %}
