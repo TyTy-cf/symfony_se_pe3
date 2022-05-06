@@ -1,4 +1,12 @@
 
-<a href="{{ path('app_country_show') }}">
-    Ajouter Pays
-</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a href="{{ path('app_country_show') }}">
+        Ajouter Pays
+    </a>
+
+    {{
+        render(controller('App\\Controller\\HomeController::searchBar'))
+    }}
+
+</nav>
+

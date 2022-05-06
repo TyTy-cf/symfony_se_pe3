@@ -27,3 +27,9 @@ On ne recherche que les Jeux !!!
     - La requête a ramené 1 résultat : on va directement sur la page de détail du jeu en question
     - La requête a ramené 0 résultat : on va sur **/jeux**
     - La requête a ramené 2 ou + résultats, on va sur une nouvelle route de nom **/jeux/recherche/{valeurRecherche}** et on affichera les cards des jeux en question
+
+
+
+{{ render(controller(
+'App\\Controller\\Security\\RegisterController::handleRegisterForm'
+)) }}
